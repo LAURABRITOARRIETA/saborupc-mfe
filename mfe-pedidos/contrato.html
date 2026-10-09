@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba de Contrato — MFE Pedidos</title>
+    <link rel="stylesheet" href="http://localhost:8085/tokens.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 24px;
+            line-height: 1.6;
+        }
+
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+
+        .box {
+            border: 1px solid #ccc;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Ejecutor de Pruebas de Contrato Automáticas (MFE Pedidos)</h2>
+    <div id="resultados"></div>
+    <div id="contenedor-test" class="box"></div>
+
+    <script src="pedidos.js"></script>
+    <script>
+        const resultados = document.getElementById('resultados');
+
+        function log(test, paso) {
+            const p = document.createElement('p');
+            p.innerHTML = `${paso ? '<span class="pass">✓ PASS</span>' : '<span class="fail">✗ FAIL</span>'}: ${test}`;
+            resultados.appendChild(p);
+        }
+
+        async function ejecutarPruebas() {
+            // Test 1: Verificación de ciclo de vida expuesto
+            log('Expone la función window.renderPedidos', typeof window.renderPedidos === 'function');
+            log('Expone la función window.unmountPedidos', typeof window.unmountPedidos === 'function');
+
+            // Test 2: Montaje dinámico
+            try {
+                await window.renderPedidos('contenedor-test');
+                const montado = document.getElementById('vue-pedidos-root') !== null;
+                log('El montaje genera elementos en el DOM', montado);
+            } catch (e) {
+                log('El montaje genera elementos en el DOM', false);
+            }
+
+            // Test 3: Validación de Estructura de Evento de salida
+            let eventoValido = false;
+            window.addEventListener('pedido:estado', function (e) {
+                if (e.detail && e.detail.id && e.detail.estado && e.detail.version === '1.0') {
+                    eventoValido = true;
+                }
+            });
+
+            // Simular llegada de pedido
+            window.dispatchEvent(new CustomEvent('pedido:confirmado', {
+                detail: { id: 9999, total: 50000, version: '1.0' }
+            }));
+
+            setTimeout(() => {
+                log('El contrato de eventos emite detalle compatible con v1.0', eventoValido);
+                window.unmountPedidos('contenedor-test');
+            }, 7000);
+        }
+
+        ejecutarPruebas();
+    </script>
+</body>
+
+</html>

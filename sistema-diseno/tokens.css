@@ -1,0 +1,48 @@
+:root {
+  /* Paleta de Colores de SaborUPC */
+  --color-primary: #d9534f;
+  --color-primary-dark: #c9302c;
+  --color-secondary: #f0ad4e;
+  --color-bg-light: #f8f9fa;
+  --color-text-main: #2c3e50;
+  --color-text-muted: #6c757d;
+  --color-white: #ffffff;
+  --color-border: #e9ecef;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+
+  /* Tipografía y Estructura */
+  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Espaciados */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+}
+
+/* Reglas CSS Globales */
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-light);
+  color: var(--color-text-main);
+  margin: 0;
+  padding: 0;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}

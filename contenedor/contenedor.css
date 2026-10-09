@@ -1,0 +1,127 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f6f8;
+  color: #222222;
+}
+
+/* Encabezado Principal */
+.app-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 14px 32px !important;
+  background-color: #0b4f8a !important; /* Azul oscuro forzado */
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-logo {
+  color: #ffffff !important;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.app-nav {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+
+/* Enlaces de Navegación (Catálogo, Carrito, Pedidos, Perfil) */
+.app-nav a {
+  color: #ffffff !important; /* Texto blanco forzado */
+  text-decoration: none !important;
+  padding: 8px 14px !important;
+  border-radius: 4px !important;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-nav a.activo,
+.app-nav a:hover {
+  background-color: #1283c8 !important; /* Azul claro al pasar o seleccionar */
+  color: #ffffff !important;
+}
+
+/* Insignia / Contador del Carrito */
+.app-badge {
+  display: inline-block;
+  min-width: 22px;
+  padding: 2px 6px;
+  border-radius: 11px;
+  background-color: #f2c200 !important; /* Amarillo */
+  color: #222222 !important;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.app-saludo {
+  font-size: 14px;
+  color: #ffffff !important;
+}
+
+/* Área Principal */
+#app-root {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0 16px;
+  min-height: 60vh;
+}
+
+.app-aviso {
+  color: #666666;
+}
+
+.app-error-card {
+  background: #fdecea;
+  color: #c0392b;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #f5c6cb;
+}
+
+.app-btn-retry {
+  margin-top: 12px;
+  background: #c0392b;
+  color: #ffffff;
+  border: 0;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Notificaciones Toast */
+.app-toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.app-toast {
+  background: #0b4f8a;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.app-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #666666;
+  padding: 16px;
+}
