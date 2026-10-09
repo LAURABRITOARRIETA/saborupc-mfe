@@ -6,27 +6,27 @@ Sistema de comercio electrónico modular construido bajo la arquitectura de **Mi
 
 ## Diagrama de Arquitectura
 
-```mermaid
-flowchart TD
-    subgraph Origen_8085 [Sistema de Diseño - 8085]
-        TOKENS[tokens.css]
-    end
+graph TD
+    DS["Design System (Puerto 8085) - tokens.css"]
+    Shell["App Shell (Puerto 8080)"]
+    Cat["MFE Catálogo (Puerto 8081)"]
+    Car["MFE Carrito (Puerto 8082)"]
+    Perf["MFE Perfil (Puerto 8083) - Shadow DOM"]
+    Ped["MFE Pedidos (Puerto 8084) - Vue 3 CDN"]
 
-    subgraph Origen_8080 [Contenedor / Shell - 8080]
-        SHELL[Shell App / Router Hash]
-        BUS[Bus Global - window]
-    end
+    DS -->|Estilos Globales| Shell
+    DS -->|Estilos Globales| Cat
+    DS -->|Estilos Globales| Car
+    DS -->|Estilos Globales| Perf
+    DS -->|Estilos Globales| Ped
 
-    subgraph MFEs [Micro Frontends]
-        CATALOGO[Catálogo - 8081 / Vanilla JS]
-        CARRITO[Carrito - 8082 / Vanilla JS]
-        PERFIL[Perfil - 8083 / Custom Element]
-        PEDIDOS[Pedidos - 8084 / Vue 3 CDN]
-    end
+    Shell -->|Orquestación| Cat
+    Shell -->|Orquestación| Car
+    Shell -->|Orquestación| Perf
+    Shell -->|Orquestación| Ped
 
-    TOKENS -.-> SHELL & CATALOGO & CARRITO & PERFIL & PEDIDOS
-    CATALOGO & CARRITO & PERFIL & PEDIDOS -->|Carga Dinámica| SHELL
-    CATALOGO & CARRITO & PERFIL & PEDIDOS <-->|Eventos| BUS
+    Cat -.->|carrito:actualizado| Shell
+    Car -.->|pedido:confirmado| Ped
 
 Puertos y ServidoresMFE / ComponentePuertoTecnologíaEstrategia de CargaContenedor (Host)8080Vanilla JS / ShellRouter Hash (#/)MFE Catálogo8081Vanilla JSFunciones render / unmountMFE Carrito8082Vanilla JSPrecargado en backgroundMFE Perfil8083Web ComponentCustom Element (Shadow DOM)MFE Pedidos8084Vue 3 (CDN)Funciones render / unmountSistema de Diseño8085CSS TokensInyección <link> globalEventos del Bus Global (window)EventoEmisorReceptorDescripcióncarrito:agregarCatálogoCarritoAgrega un producto al carritocarrito:actualizadoCarritoShellActualiza contador de la barra superiorusuario:cambioPerfilShellActualiza saludo de usuariopedido:confirmadoCarritoPedidosCrea una nueva orden de pedidopedido:estadoPedidosShellMuestra notificación Toast en pantallaPasos de Ejecución Local1. Estructura de CarpetasVerifica que las carpetas estén al mismo nivel:Plaintextsaborupc-2.0/
 ├── sistema-diseno/
